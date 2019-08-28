@@ -28,7 +28,11 @@ module.exports = {
                 let token = jwt.sign({
                     _id: user._id,
                     name: user.name,
-                    email: user.email
+                    email: user.email,
+                    balance: user.balance,
+                    income: user.income,
+                    expense: user.expense,
+                    transactions: user.transactions
                 }, 'SECRET', {expiresIn: '2h'})
                 return res.json({
                     message: 'Login Successful',
@@ -56,9 +60,13 @@ module.exports = {
                         })
                     }
                     let user = new User({
-                        name,
-                        email,
-                        password: hash
+                        name: name,
+                        email: email,
+                        password: hash,
+                        balance: 0,
+                        expense: 0,
+                        income: 0,
+                        transactions: []
                     })
                     user.save()
                     .then(user => {
@@ -80,5 +88,12 @@ module.exports = {
                 })
             })
         }
+    },
+    allUser(req, res){
+        User.find()
+            .then(users => {
+                res.status(200).json(users)
+            })
+            .catch(error => serverError(res, error))
     }
 }
