@@ -23,6 +23,10 @@ class CreateTransaction extends  React.Component{
         type: '',
         note: ''
     }
+    componentDidMount() {
+        Modal.setAppElement('body')
+    }
+
     changeHandler(e){
         if(e.target.name === 'amount'){
             this.setState({

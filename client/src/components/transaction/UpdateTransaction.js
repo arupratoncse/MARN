@@ -23,6 +23,7 @@ class UpdateTransaction extends  React.Component{
         note: ''
     }
     componentDidMount() {
+        Modal.setAppElement('body')
         this.setState({
             amount: this.props.transaction.amount,
             note: this.props.transaction.note
